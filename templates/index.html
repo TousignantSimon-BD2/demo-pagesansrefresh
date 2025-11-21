@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Recherche de Voiture</title>
+    <style>
+        body { font-family: sans-serif; padding: 2em; }
+        input { margin-bottom: 0.5em; }
+        input:read-only { background-color: #e9ecef; }
+    </style>
+</head>
+<body>
+
+    <h1>Recherche de Voiture</h1>
+
+    <div>
+        <input type="text" id="champId" placeholder="Entrez l'ID de la voiture...">
+        <button id="boutonRechercher" onclick="recupererDonneesVoiture()">Rechercher</button>
+    </div>
+
+    <hr>
+
+    <div>
+        <label for="champMarque">Marque :</label><br>
+        <input type="text" id="champMarque"><br>
+        
+        <label for="champModele">Modèle :</label><br>
+        <input type="text" id="champModele"><br>
+    </div>
+
+    <script>
+        const champId = document.getElementById('champId');
+        const champMarque = document.getElementById('champMarque');
+        const champModele = document.getElementById('champModele');
+
+        // Une petite fonction pour remettre les champs à zéro avant une nouvelle recherche.
+        function reinitialiserFormulaire() {
+            champMarque.value = '';
+            champModele.value = '';
+            champMarque.readOnly = false;
+            champModele.readOnly = false;
+        }
+
+        // La fonction qui va chercher les infos de la voiture quand on pèse sur le bouton.
+        async function recupererDonneesVoiture() {
+            const id = champId.value.trim();
+            reinitialiserFormulaire();
+
+            if (!id) {
+                alert("Oublie pas d'entrer un ID !");
+                return;
+            }
+
+            try {
+                // On appelle notre page spéciale (l'API) avec le fetch.
+                const reponse = await fetch(`/api/voiture/${id}`);
+                
+                if (reponse.ok) {
+                    const donnees = await reponse.json();
+                    champMarque.value = donnees.marque;
+                    champModele.value = donnees.modele;
+                    champMarque.readOnly = true;
+                    champModele.readOnly = true;
+                } else if (reponse.status === 404) {
+                    alert("Désolé, on n'a pas trouvé de voiture avec cet ID-là.");
+                } else {
+                    throw new Error(`Erreur du serveur: ${reponse.status}`);
+                }
+            } catch (erreur) {
+                console.error('Erreur pendant la recherche:', erreur);
+                alert("Il y a eu un problème de communication avec le serveur.");
+            }
+        }
+        
+        // Ça, c'est pour que ça marche aussi si on pèse sur "Enter" dans la boîte de texte.
+        champId.addEventListener('keyup', (evenement) => {
+            if (evenement.key === 'Enter') {
+                recupererDonneesVoiture();
+            }
+        });
+
+        // On s'assure que les champs sont vides quand la page charge.
+        reinitialiserFormulaire();
+    </script>
+
+</body>
+</html>
