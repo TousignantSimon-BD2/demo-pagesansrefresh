@@ -12,7 +12,7 @@ L'idée, c'est simple :
 
 Cette technique, où le JavaScript va chercher des données en arrière-plan, s'appelle **AJAX**. C'est super pratique pour rendre les pages web plus rapides et agréables à utiliser.
 
-## Comment ça marche en dessous de la 'hood' ?
+## Comment ça marche en dessous du capot ?
 
 Le JavaScript ne va pas voir la base de données directement. À la place, il appelle une page web spéciale qu'on a créée dans notre application Flask (`/api/voiture/<id>`).
 
