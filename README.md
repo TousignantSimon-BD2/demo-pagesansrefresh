@@ -20,11 +20,11 @@ Cette page spéciale, c'est pas une page HTML normale. Elle retourne juste un fi
 
 Flask rend ça super facile avec la fonction `jsonify`. Pas besoin de se casser la tête, tu lui donnes un dictionnaire Python et `jsonify` s'occupe de le transformer en JSON pour que le navigateur soit content.
 
-## Instructions pour les étudiants
+## Instructions particulières
 
 Vous pouvez reprendre ce code, le modifier, vous en inspirer pour vos propres projets. Pas besoin de nous citer, c'est fait pour vous aider à apprendre.
 
-## Comment faire rouler le projet
+## Comment faire faire fonctionner le projet
 
 Assurez-vous d'avoir Python et MySQL d'installés sur votre machine.
 
@@ -35,7 +35,7 @@ Assurez-vous d'avoir Python et MySQL d'installés sur votre machine.
     ```
 
 2.  **Activez l'environnement**
-    *   Sur macOS/Linux : `source venv/bin/activate`
+    *   Sur Linux : `source venv/bin/activate`
     *   Sur Windows (cmd) : `venv\Scripts\activate.bat`
 
 3.  **Installez les paquets nécessaires**
